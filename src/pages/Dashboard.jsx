@@ -1,141 +1,121 @@
-import React from "react";
-import { Box, Typography, Paper, Button, List, ListItem, ListItemIcon, ListItemText, Divider } from "@mui/material";
-import PeopleIcon from "@mui/icons-material/People";
+import React, { useState } from "react";
+import {
+    Box, List, ListItemIcon, ListItemText, Divider,
+    ListItemButton, useMediaQuery, Drawer, IconButton, AppBar, Toolbar, Typography
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import AccessTimeFilled from "@mui/icons-material/AccessTimeFilled";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import PersonIcon from "@mui/icons-material/Person";
+import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
+import AnnouncementIcon from "@mui/icons-material/Announcement";
+import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
     const navigate = useNavigate();
+    const isMobile = useMediaQuery("(max-width:900px)");
+    const [mobileOpen, setMobileOpen] = useState(false);
 
-    return (
-        <Box
-            sx={{
-                minHeight: "100vh",
-                width: "100vw",
-                display: "flex",
-                backgroundColor: "#f5f5f5",
-            }}
-        >
-            {/* Side Menu */}
-            <Box
-                sx={{
-                    width: 250,
-                    background: "#fff",
-                    boxShadow: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    py: 3,
-                    minHeight: "100vh",
-                }}
-            >
-                <Typography variant="h6" align="center" sx={{ mb: 3 }}>
-                    HR Dashboard
-                </Typography>
-                <Divider />
+    const menuItems = [
+        { icon: <PersonIcon color="primary" />, text: "ข้อมูลส่วนตัว" },
+        { icon: <AccessTimeFilled color="primary" />, text: "ลงเวลา" },
+        { icon: <EventNoteIcon color="primary" />, text: "ตารางงาน" },
+        { icon: <AssignmentIndIcon color="primary" />, text: "ลางาน" },
+        { icon: <MonetizationOnIcon color="primary" />, text: "เงินเดือน" },
+        { icon: <WorkHistoryIcon color="primary" />, text: "การทำงาน" },
+        { icon: <AnnouncementIcon color="primary" />, text: "ข่าวสาร/ประกาศ" },
+        { icon: <ContactPhoneIcon color="primary" />, text: "ติดต่อฝ่ายบุคคล" },
+    ];
+
+    const drawerContent = (
+        <Box sx={{ width: 250, display: "flex", flexDirection: "column", height: "100%" }}>
+            {/* Header */}
+            <Typography variant="h6" align="center" sx={{ py: 2, fontWeight: 'bold' }}>
+                HRM
+            </Typography>
+            <Divider />
+
+            {/* Menu List */}
+            <Box sx={{ flexGrow: 1 }}>
                 <List>
-                    <ListItem button sx={{ cursor: "pointer" }}>
-                        <ListItemIcon>
-                            <PeopleIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="ข้อมูลพนักงาน" />
-                    </ListItem>
-                    <ListItem button sx={{ cursor: "pointer" }}>
-                        <ListItemIcon>
-                            <AssignmentIndIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="การลา" />
-                    </ListItem>
-                    <ListItem button sx={{ cursor: "pointer" }}>
-                        <ListItemIcon>
-                            <EventNoteIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="ตารางงาน" />
-                    </ListItem>
-                    <ListItem button sx={{ cursor: "pointer" }}>
-                        <ListItemIcon>
-                            <MonetizationOnIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="เงินเดือน" />
-                    </ListItem>
-                    <ListItem button sx={{ cursor: "pointer" }}>
-                        <ListItemIcon>
-                            <AssignmentIndIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="ประวัติการทำงาน" />
-                    </ListItem>
-                    <ListItem button sx={{ cursor: "pointer" }}>
-                        <ListItemIcon>
-                            <PeopleIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="ประเมินผล" />
-                    </ListItem>
-                    <ListItem button sx={{ cursor: "pointer" }}>
-                        <ListItemIcon>
-                            <EventNoteIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="อบรม/สัมมนา" />
-                    </ListItem>
-                    <ListItem button sx={{ cursor: "pointer" }}>
-                        <ListItemIcon>
-                            <AssignmentIndIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="สวัสดิการ" />
-                    </ListItem>
-                    <ListItem button sx={{ cursor: "pointer" }}>
-                        <ListItemIcon>
-                            <PeopleIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="ประกาศ/ข่าวสาร" />
-                    </ListItem>
-                    <ListItem button sx={{ cursor: "pointer" }}>
-                        <ListItemIcon>
-                            <EventNoteIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="ตั้งค่าบัญชี" />
-                    </ListItem>
-                </List>
-                <Box sx={{ flexGrow: 1 }} />
-                <Divider />
-                <List>
-                    <ListItem button sx={{ cursor: "pointer" }} onClick={() => navigate("/")}>
-                        <ListItemIcon>
-                            <LogoutIcon color="error" />
-                        </ListItemIcon>
-                        <ListItemText primary="ออกจากระบบ" />
-                    </ListItem>
+                    {menuItems.map((item, index) => (
+                        <ListItemButton key={index} sx={{ cursor: "pointer" }}>
+                            <ListItemIcon>{item.icon}</ListItemIcon>
+                            <ListItemText primary={item.text} />
+                        </ListItemButton>
+                    ))}
                 </List>
             </Box>
 
-            {/* Main Content */}
-            <Box
-                sx={{
-                    flex: 1,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}
-            >
-                {/* <Paper elevation={3} sx={{ padding: 4, borderRadius: 2, minWidth: 350 }}>
-                    <Typography variant="h4" align="center" gutterBottom>
-                        แดชบอร์ด
-                    </Typography>
-                    <Typography align="center" sx={{ mb: 3, color: "text.secondary" }}>
-                        ยินดีต้อนรับเข้าสู่ระบบ!<br />
-                        คุณเข้าสู่หน้าแดชบอร์ดสำเร็จแล้ว
-                    </Typography>
-                    <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() => navigate("/")}
+            <Divider />
+
+            {/* Logout */}
+            <List>
+                <ListItemButton sx={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+                    <ListItemIcon>
+                        <LogoutIcon color="error" />
+                    </ListItemIcon>
+                    <ListItemText primary="ออกจากระบบ" />
+                </ListItemButton>
+            </List>
+        </Box>
+    );
+
+    return (
+        <Box sx={{ display: "flex" }}>
+            {/* App Bar สำหรับ Mobile */}
+            {isMobile && (
+                <AppBar position="fixed" sx={{ backgroundColor: "#1976d2" }}>
+                    <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            edge="start"
+                            onClick={() => setMobileOpen(true)}
+                            sx={{ mr: 2 }}
                         >
-                            กลับหน้าแรก
-                        </Button>
-                    </Box>
-                </Paper> */}
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold' }} noWrap>
+                            HRM
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            )}
+
+            {/* Sidebar Desktop */}
+            {!isMobile && (
+                <Box
+                    sx={{
+                        width: 250,
+                        flexShrink: 0,
+                        background: "#fff",
+                        boxShadow: 2,
+                        minHeight: "100vh"
+                    }}
+                >
+                    {drawerContent}
+                </Box>
+            )}
+
+            {/* Drawer Mobile */}
+            {isMobile && (
+                <Drawer
+                    anchor="left"
+                    open={mobileOpen}
+                    onClose={() => setMobileOpen(false)}
+                    ModalProps={{ keepMounted: true }}
+                >
+                    {drawerContent}
+                </Drawer>
+            )}
+
+            {/* Main Content */}
+            <Box component="main" sx={{ flexGrow: 1, p: isMobile ? 3 : 2, mt: isMobile ? 8 : 0 }}>
+                {/* เนื้อหาหลัก */}
             </Box>
         </Box>
     );
