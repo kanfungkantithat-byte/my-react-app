@@ -140,7 +140,7 @@ export default function Attendance() {
             >
                 <AccessTime color="primary" sx={{ fontSize: "4rem", mb: 1 }} />
                 <Typography variant="h4" fontWeight="bold" gutterBottom>
-                    ทดสอบ
+                    ลงเวลาเข้า / ออกงาน
                 </Typography>
                 <Typography variant="h5" color="text.secondary" gutterBottom>
                     {time.toLocaleDateString("th-TH", {
