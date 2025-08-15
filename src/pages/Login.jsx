@@ -38,7 +38,7 @@ export default function Login() {
             setSuccess("เข้าสู่ระบบสำเร็จ!");
             setEmail("");
             setPassword("");
-            navigate("/dashboard"); // ไปหน้า dashboard
+            navigate("/hrm/dashboard"); // ไปหน้า dashboard
         }
     };
 

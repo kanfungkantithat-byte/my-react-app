@@ -21,14 +21,14 @@ export default function Dashboard() {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const menuItems = [
-        { icon: <PersonIcon color="primary" />, text: "ข้อมูลส่วนตัว" },
-        { icon: <AccessTimeFilled color="primary" />, text: "ลงเวลา" },
-        { icon: <EventNoteIcon color="primary" />, text: "ตารางงาน" },
-        { icon: <AssignmentIndIcon color="primary" />, text: "ลางาน" },
-        { icon: <MonetizationOnIcon color="primary" />, text: "เงินเดือน" },
-        { icon: <WorkHistoryIcon color="primary" />, text: "การทำงาน" },
-        { icon: <AnnouncementIcon color="primary" />, text: "ข่าวสาร/ประกาศ" },
-        { icon: <ContactPhoneIcon color="primary" />, text: "ติดต่อฝ่ายบุคคล" },
+        { icon: <PersonIcon color="primary" />, text: "ข้อมูลส่วนตัว", path: "/profile" },
+        { icon: <AccessTimeFilled color="primary" />, text: "ลงเวลา", path: "/hrm/attendance" },
+        { icon: <EventNoteIcon color="primary" />, text: "ตารางงาน", path: "/schedule" },
+        { icon: <AssignmentIndIcon color="primary" />, text: "ลางาน", path: "/leave" },
+        { icon: <MonetizationOnIcon color="primary" />, text: "เงินเดือน", path: "/salary" },
+        { icon: <WorkHistoryIcon color="primary" />, text: "การทำงาน", path: "/work-history" },
+        { icon: <AnnouncementIcon color="primary" />, text: "ข่าวสาร/ประกาศ", path: "/news" },
+        { icon: <ContactPhoneIcon color="primary" />, text: "ติดต่อฝ่ายบุคคล", path: "/contact-hr" },
     ];
 
     const drawerContent = (
@@ -43,7 +43,11 @@ export default function Dashboard() {
             <Box sx={{ flexGrow: 1 }}>
                 <List>
                     {menuItems.map((item, index) => (
-                        <ListItemButton key={index} sx={{ cursor: "pointer" }}>
+                        <ListItemButton
+                            key={index}
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => navigate(item.path)}
+                        >
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.text} />
                         </ListItemButton>
